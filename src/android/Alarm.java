@@ -59,7 +59,7 @@ public class Alarm extends CordovaPlugin {
 
             if (action.equals("snooze")) {
                 int snoozeMinutes = 10;
-                if (options.has("snoozeMinutes")) this.snoozeMinutes = (int) options.get("snoozeMinutes");
+                if (options.has("snoozeMinutes")) snoozeMinutes = (int) options.get("snoozeMinutes");
                 Date nextReminder = new Date((new Date()).getTime() + 60000 * snoozeMinutes);
                 addAlarm(nextReminder);
                 LockScreenActivity lockScreenActivity = (LockScreenActivity) this.cordova.getActivity();

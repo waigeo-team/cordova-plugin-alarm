@@ -79,6 +79,11 @@ public class Alarm extends CordovaPlugin {
                 return true;
             }
 
+            if (action.equals("cancelAll")) {
+                cancelAll();
+                return true;
+            }
+
             return false;
 
         } catch (Exception e) {
@@ -105,11 +110,21 @@ public class Alarm extends CordovaPlugin {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("viewUrl", this.viewUrl);
         intent.putExtra("musicUrl", this.musicUrl);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), 654654654, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         
         AlarmManager alarmManager = (AlarmManager) (this.cordova.getActivity().getSystemService(Context.ALARM_SERVICE));
-        alarmManager.cancel(pendingIntent);
+        // alarmManager.cancel(pendingIntent);
         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(time.getTime(), pendingIntent);
         alarmManager.setAlarmClock(clockInfo, pendingIntent);
+    }
+
+    private void cancelAll() {
+        Intent intent = new Intent(this.cordova.getActivity(), AlarmReceiver.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("viewUrl", this.viewUrl);
+        intent.putExtra("musicUrl", this.musicUrl);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), 654654654, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) (this.cordova.getActivity().getSystemService(Context.ALARM_SERVICE));
+        alarmManager.cancel(pendingIntent);
     }
 }

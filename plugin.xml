@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    id="cordova-plugin-alarm"
+    version="0.0.1">
+
+    <name>Cordova Plugin Alarm</name>
+
+    <engines>
+        <engine name="cordova" version=">=3.4.0"/>
+    </engines>
+
+    <js-module src="www/alarm.js" name="alarm">
+        <clobbers target="alarm" />
+    </js-module>
+
+    <platform name="android">
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Alarm">
+                <param name="android-package" value="org.waigeo.cordova.alarm.Alarm"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="org.waigeo.cordova.alarm.AlarmReceiver" android:process=":remote">
+            </receiver>
+            <activity android:label="LockScreenActivity" android:name="org.waigeo.cordova.alarm.LockScreenActivity"></activity>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+            <intent-filter>
+                <action android:name="org.waigeo.cordova.alarm.ALARM" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </config-file>
+
+        <source-file src="src/android/Alarm.java" target-dir="src/org/waigeo/cordova/alarm"/>
+        <source-file src="src/android/AlarmReceiver.java" target-dir="src/org/waigeo/cordova/alarm"/>
+        <source-file src="src/android/LockScreenActivity.java" target-dir="src/org/waigeo/cordova/alarm"/>
+    </platform>
+
+</plugin>

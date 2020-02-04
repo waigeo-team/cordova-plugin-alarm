@@ -1,0 +1,21 @@
+{
+  "name": "cordova-plugin-alarm",
+  "version": "0.0.1",
+  "description": "Cordova Plugin Alarm",
+  "cordova": {
+    "id": "cordova-plugin-alarm",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "plugin",
+    "alarm",
+    "alarm clock",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Jean Bachelet",
+  "license": "Apache-2"
+}

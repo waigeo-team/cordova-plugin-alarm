@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "D:\\documents\\Projet\\testreveil"
+		},
+		{
+			"path": "D:\\documents\\Projet\\cordova-plugin-alarm"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}

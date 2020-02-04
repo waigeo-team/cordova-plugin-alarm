@@ -26,8 +26,8 @@ public class Alarm extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray data, final CallbackContext callbackContext) {
         try {
-            JSONObject options = data.getJSONObject(0);
             if (action.equals("add")) {
+                JSONObject options = data.getJSONObject(0);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date alarmDate = sdf.parse((String) options.get("date"));
                 if (options.has("viewUrl")) this.viewUrl = (String) options.get("viewUrl");
@@ -58,6 +58,7 @@ public class Alarm extends CordovaPlugin {
             }
 
             if (action.equals("snooze")) {
+                JSONObject options = data.getJSONObject(0);
                 int snoozeMinutes = 10;
                 if (options.has("snoozeMinutes")) snoozeMinutes = (int) options.get("snoozeMinutes");
                 Date nextReminder = new Date((new Date()).getTime() + 60000 * snoozeMinutes);

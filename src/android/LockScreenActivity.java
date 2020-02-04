@@ -128,6 +128,7 @@ public class LockScreenActivity extends CordovaActivity {
 
                 mediaPlayer = new MediaPlayer();
                 mediaPlayer.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
                 mediaPlayer.setLooping(true);
                 mediaPlayer.setVolume(lastVolumeValue, lastVolumeValue);
                 mediaPlayer.prepare();
@@ -139,9 +140,9 @@ public class LockScreenActivity extends CordovaActivity {
             }
         } else {
             Log.d(TAG, "Music set to default");
-            Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             mediaPlayer = MediaPlayer.create(this, defaultRingtoneUri);
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
             mediaPlayer.setLooping(true);
             mediaPlayer.setVolume(lastVolumeValue, lastVolumeValue);
             mediaPlayer.start();

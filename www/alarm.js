@@ -31,7 +31,7 @@ var Alarm = {
     stop: function (successCallback, errorCallback) {
         exec(successCallback, errorCallback, PLUGIN_NAME, "stop", []);
     },
-    snooze: function (successCallback, errorCallback) {
+    snooze: function (successCallback, errorCallback, options) {
         exec(successCallback, errorCallback, PLUGIN_NAME, "snooze", [options]);
     },
     isFromAlarmTrigger: function (successCallback, errorCallback) {

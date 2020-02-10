@@ -25,8 +25,8 @@ var Alarm = {
     add: function (successCallback, errorCallback, options) {
         exec(successCallback, errorCallback, PLUGIN_NAME, "add", [options]);
     },
-    remove: function (successCallback, errorCallback) {
-        exec(successCallback, errorCallback, PLUGIN_NAME, "remove", []);
+    remove: function (successCallback, errorCallback, options) {
+        exec(successCallback, errorCallback, PLUGIN_NAME, "remove", [options]);
     },
     stop: function (successCallback, errorCallback) {
         exec(successCallback, errorCallback, PLUGIN_NAME, "stop", []);
@@ -37,8 +37,8 @@ var Alarm = {
     isFromAlarmTrigger: function (successCallback, errorCallback) {
         exec(successCallback, errorCallback, PLUGIN_NAME, "isFromAlarmTrigger", []);
     },
-    cancelAll: function (successCallback, errorCallback) {
-        exec(successCallback, errorCallback, PLUGIN_NAME, "cancelAll", []);
+    cancelAll: function (successCallback, errorCallback, options) {
+        exec(successCallback, errorCallback, PLUGIN_NAME, "cancel", [options]);
     }
 };
 

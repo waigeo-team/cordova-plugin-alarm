@@ -22,6 +22,7 @@ public class Alarm extends CordovaPlugin {
 
     private String viewUrl = null;
     private String musicUrl = null;
+    private int matchId = 0;
 
     @Override
     public boolean execute(String action, JSONArray data, final CallbackContext callbackContext) {
@@ -32,15 +33,17 @@ public class Alarm extends CordovaPlugin {
                 Date alarmDate = sdf.parse((String) options.get("date"));
                 if (options.has("viewUrl")) this.viewUrl = (String) options.get("viewUrl");
                 if (options.has("musicUrl")) this.musicUrl = (String) options.get("musicUrl");
+                if (options.has("matchId")) this.matchId = (int) options.get("matchId");
                 addAlarm(alarmDate);
                 callbackContext.success("added for: " + alarmDate.toString());
                 return true;
             }
 
             if (action.equals("remove")) {
+                JSONObject options = data.getJSONObject(0);
                 Intent intent = new Intent(this.cordova.getActivity(), AlarmReceiver.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), 0, intent, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), this.matchId, intent, 0);
                 AlarmManager alarmManager = (AlarmManager) (this.cordova.getActivity().getSystemService(Context.ALARM_SERVICE));
                 alarmManager.cancel(pendingIntent);
                 callbackContext.success("removed");
@@ -79,8 +82,8 @@ public class Alarm extends CordovaPlugin {
                 return true;
             }
 
-            if (action.equals("cancelAll")) {
-                cancelAll();
+            if (action.equals("cancel")) {
+                cancel(this.matchId);
                 return true;
             }
 
@@ -110,20 +113,19 @@ public class Alarm extends CordovaPlugin {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("viewUrl", this.viewUrl);
         intent.putExtra("musicUrl", this.musicUrl);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), 654654654, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), this.matchId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         
         AlarmManager alarmManager = (AlarmManager) (this.cordova.getActivity().getSystemService(Context.ALARM_SERVICE));
-        // alarmManager.cancel(pendingIntent);
         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(time.getTime(), pendingIntent);
         alarmManager.setAlarmClock(clockInfo, pendingIntent);
     }
 
-    private void cancelAll() {
+    private void cancel(int id) {
         Intent intent = new Intent(this.cordova.getActivity(), AlarmReceiver.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("viewUrl", this.viewUrl);
         intent.putExtra("musicUrl", this.musicUrl);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), 654654654, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) (this.cordova.getActivity().getSystemService(Context.ALARM_SERVICE));
         alarmManager.cancel(pendingIntent);
     }

@@ -33,7 +33,7 @@ public class Alarm extends CordovaPlugin {
                 Date alarmDate = sdf.parse((String) options.get("date"));
                 if (options.has("viewUrl")) this.viewUrl = (String) options.get("viewUrl");
                 if (options.has("musicUrl")) this.musicUrl = (String) options.get("musicUrl");
-                if (options.has("matchId")) this.matchId = Integer.parseInt(options.get("matchId"));
+                if (options.has("matchId")) this.matchId = Integer.parseInt((String) options.get("matchId"));
                 addAlarm(alarmDate);
                 callbackContext.success("added for: " + alarmDate.toString());
                 return true;

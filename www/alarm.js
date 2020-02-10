@@ -37,7 +37,7 @@ var Alarm = {
     isFromAlarmTrigger: function (successCallback, errorCallback) {
         exec(successCallback, errorCallback, PLUGIN_NAME, "isFromAlarmTrigger", []);
     },
-    cancelAll: function (successCallback, errorCallback, options) {
+    cancel: function (successCallback, errorCallback, options) {
         exec(successCallback, errorCallback, PLUGIN_NAME, "cancel", [options]);
     }
 };
